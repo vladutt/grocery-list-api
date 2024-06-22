@@ -1,0 +1,36 @@
+version: "3"
+services:
+  app:
+    privileged: true
+    container_name: grocery-list-api
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    volumes:
+      - ./laravel:/var/www/html
+      - ./docker/linux/supervisord.conf:/etc/supervisor/conf.d/supervisord.conf
+      - ./docker/linux/nginx.sample.conf:/etc/nginx/nginx.conf
+      - ./docker/linux/fpm-pool.conf:/etc/php/8.3/fpm/pool.d/www.conf
+      - ./docker/linux/php-custom.ini:/etc/php/8.3/cli/conf.d/99-custom.ini
+    ports:
+    - "8080:80"
+
+  api-testing-mysql:
+    image: mysql:latest
+    container_name: grocery-list-mysql
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: unless-stopped
+    ports:
+      - "3306:3306"
+    expose:
+      - 3306
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: grocery-list
+      MYSQL_USER: grocery-list
+      MYSQL_PASSWORD: grocery-list
+
+volumes:
+  db_data:

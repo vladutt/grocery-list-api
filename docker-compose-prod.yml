@@ -1,0 +1,17 @@
+version: "3"
+services:
+  app:
+    privileged: true
+    container_name: laravel-fresh
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: docker/prod.Dockerfile
+    volumes:
+      - ./laravel:/var/www/html
+      - ./docker/linux/supervisord.conf:/etc/supervisor/conf.d/supervisord.conf
+      - ./docker/linux/nginx.sample.conf:/etc/nginx/nginx.conf
+      - ./docker/linux/fpm-pool.conf:/etc/php/8.3/fpm/pool.d/www.conf
+      - ./docker/linux/php-custom.ini:/etc/php/8.3/cli/conf.d/99-custom.ini
+    ports:
+    - "8080:80"
