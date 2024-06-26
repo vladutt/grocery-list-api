@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('tag')->nullable();
             $table->integer('items')->default(0);
+            $table->integer('items_count')->default(0);
             $table->timestamps();
         });
     }
