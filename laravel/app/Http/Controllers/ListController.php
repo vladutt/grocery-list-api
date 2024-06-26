@@ -28,7 +28,7 @@ class ListController extends Controller
             $users = User::select('id', 'name', 'avatar', 'email')->whereIn('id', $usersIDs)->get();
             $listItem->sharedList = $users;
             $listItem->totalItems = $listItem->items_count;
-            $listItem->checkedItems = $listItem->items->where('done', 1)->count();
+            $listItem->checkedItems = $listItem->items ? $listItem->items->where('done', 1)->count() : 0;
         }
 
         return $this->success([
