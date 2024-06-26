@@ -23,7 +23,7 @@ class UserController extends Controller
         $user->name = $request->input('name');
         $user->save();
 
-        return $this->success(['user' => $user]);
+        return $this->success(['avatar' => $user->avatarPath]);
     }
 
     public function changePassword(ChangePasswordRequest $request) {

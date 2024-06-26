@@ -52,6 +52,6 @@ class User extends Authenticatable
 
     public function getAvatarPathAttribute()
     {
-        return url(Storage::url('avatars/'.$this->avatar));
+        return !$this->avatar ? null : url(Storage::url('avatars/'.$this->avatar));
     }
 }

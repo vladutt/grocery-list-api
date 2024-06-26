@@ -28,6 +28,10 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 WORKDIR /var/www/html
 
+COPY . .
+
+RUN chmod o+w ./storage/ -R
+
 RUN service php${PHP_VERSION}-fpm start
 
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]

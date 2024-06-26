@@ -11,9 +11,14 @@ class SharedListController extends Controller
 {
     public function share(Request $request) {
 
+        $userID = User::where('email', $request->email)->value('id');
+        if (!$userID) {
+            return $this->success();
+        }
+
         $sharedList = new SharedList();
         $sharedList->list_id = $request->listId;
-        $sharedList->user_id = User::where('email', $request->email)->value('id');
+        $sharedList->user_id = $userID;
         $sharedList->save();
 
         return $this->success();
