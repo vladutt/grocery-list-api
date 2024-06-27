@@ -16,17 +16,29 @@ class ListController extends Controller
         $sharedListIds = SharedList::where('user_id', $user->id)->get()->pluck('id')->toArray();
 
         $lists = ListModel::currentUser()
-            ->orWhereIn('user_id', $sharedListIds)
+            ->orWhereIn('id', $sharedListIds)
             ->with('sharedLists', 'items')
             ->paginate();
 
         $listsItems = $lists->items();
 
-        foreach($listsItems as $listItem) {
+        foreach($listsItems as $key => $listItem) {
+            $listItem->owner = null;
+
             $usersIDs = $listItem->sharedLists->pluck('user_id')->toArray();
 
             $users = User::select('id', 'name', 'avatar', 'email')->whereIn('id', $usersIDs)->get();
-            $listItem->sharedList = $users;
+
+            $users = $users->where('id', '!=', $user->id);
+
+            // Dacă lista nu aparține acestui utilizator, adaugă utilizatorul
+            if ($listItem->user_id !== $user->id) {
+                $ownerList = User::select('id', 'name', 'avatar', 'email')->where('id', $listItem->user_id)->first();
+                $users->push($ownerList);
+                $listItem->owner = ucfirst($ownerList->name);
+            }
+
+            $listItem->sharedList = $users->values();
             $listItem->totalItems = $listItem->items_count;
             $listItem->checkedItems = $listItem->items ? $listItem->items->where('done', 1)->count() : 0;
         }
