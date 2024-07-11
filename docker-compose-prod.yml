@@ -14,4 +14,4 @@ services:
       - ./docker/linux/fpm-pool.conf:/etc/php/8.3/fpm/pool.d/www.conf
       - ./docker/linux/php-custom.ini:/etc/php/8.3/cli/conf.d/99-custom.ini
     ports:
-    - "8080:80"
+    - "8000:80"
