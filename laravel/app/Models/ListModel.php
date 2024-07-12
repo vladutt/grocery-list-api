@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Traits\CurrentUser;
-use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 
 class ListModel extends Model

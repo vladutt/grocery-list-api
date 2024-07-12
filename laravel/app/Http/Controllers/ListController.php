@@ -40,7 +40,7 @@ class ListController extends Controller
 
             $listItem->sharedList = $users->values();
             $listItem->totalItems = $listItem->items_count;
-            $listItem->checkedItems = $listItem->items ? $listItem->items->where('done', 1)->count() : 0;
+            $listItem->checkedItems = $listItem->items()->where('done', 1)->count() ?? 0;
         }
 
         return $this->success([
@@ -64,6 +64,8 @@ class ListController extends Controller
             'id' => $list->id,
             'name' => $list->name,
             'tag' => $list->tag,
+            'totalItems' => 0,
+            'checkedItems' => 0
         ]);
     }
 
