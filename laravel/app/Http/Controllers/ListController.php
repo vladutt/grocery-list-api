@@ -13,7 +13,7 @@ class ListController extends Controller
 
         $user = $request->user();
 
-        $sharedListIds = SharedList::where('user_id', $user->id)->get()->pluck('id')->toArray();
+        $sharedListIds = SharedList::where('user_id', $user->id)->get()->pluck('list_id')->toArray();
 
         $lists = ListModel::currentUser()
             ->orWhereIn('id', $sharedListIds)
