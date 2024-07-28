@@ -24,6 +24,7 @@ class ItemController extends Controller
 
         $item = new Item();
         $item->list_id = $request->list_id;
+        $item->user_id = auth()->user()->id;
         $item->name = $request->name;
         $item->quantity = $request->quantity;
         $item->unit = $request->unit;
@@ -38,7 +39,6 @@ class ItemController extends Controller
             'name' => $item->name,
             'quantity' => $item->quantity,
             'unit' => $item->unit,
-
         ]);
     }
 

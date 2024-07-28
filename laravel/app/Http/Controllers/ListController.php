@@ -57,7 +57,7 @@ class ListController extends Controller
         $list = new ListModel();
         $list->user_id = auth()->user()->id;
         $list->name = $request->name;
-        $list->tag = $request->tag;
+//        $list->tag = $request->tag;
         $list->save();
 
         return $this->success([

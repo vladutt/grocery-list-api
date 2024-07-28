@@ -18,7 +18,7 @@ class EditProfileRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
-            'avatar' => ['file', 'image', 'mimes:jpeg,png,jpg', 'max:3072'],
+            'avatar' => ['sometimes', 'image', 'mimes:jpeg,png,jpg', 'max:3072'],
         ];
     }
 }

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->integer('used')->default(0);
+            $table->foreignIdFor(\App\Models\User::class);
             $table->string('language')->default('en');
             $table->timestamps();
         });
