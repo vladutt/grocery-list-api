@@ -84,6 +84,12 @@ class ListController extends Controller
     }
 
     public function deleteList(Request $request, $id) {
+
+        if ($request->remove) {
+            SharedList::where('list_id', $id)->currentUser()->delete();
+            return $this->success();
+        }
+
         $list = ListModel::currentUser()->find($id);
         $list->delete();
 
