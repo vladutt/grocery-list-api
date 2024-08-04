@@ -8,7 +8,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
-    return response()->json($request->user());
+    $user = $request->user();
+
+    return response()->json([
+            'email' => $user->email,
+            'name' => $user->name,
+            'avatar' => $user->avatarPath,
+            'id' => $user->id
+        ]);
 });
 
 require __DIR__.'/auth.php';
@@ -43,3 +50,6 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::post('/change-email', [UserController::class, 'changeEmail']);
     });
 });
+
+Route::get('/google', [App\Http\Controllers\GoogleLoginController::class, 'redirectToGoogle'])->name('google.redirect');
+Route::get('/google/callback', [App\Http\Controllers\GoogleLoginController::class, 'handleGoogleCallback'])->name('google.callback');

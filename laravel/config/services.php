@@ -38,6 +38,12 @@ return [
     'mailjet' => [
         'key' => env('MAILJET_API_KEY'),
         'secret' => env('MAILJET_SECRET_KEY'),
+    ],
+
+    'google' => [
+        'client_id' => env('GOOGLE_CLIENT_ID'),
+        'client_secret' => env('GOOGLE_CLIENT_SECRET'),
+        'redirect' => env('GOOGLE_REDIRECT_URL'),
     ]
 
 ];
