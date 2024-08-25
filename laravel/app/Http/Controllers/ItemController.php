@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class ItemController extends Controller
 {
     public function getItems(Request $request) {
-        $items = Item::where('list_id', $request->list_id)->paginate();
+        $items = Item::where('list_id', $request->list_id)->orderBy('created_at', 'desc')->paginate();
 
         return $this->success([
             'total' => $items->total(),

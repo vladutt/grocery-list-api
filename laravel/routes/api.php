@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ListController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\SharedListController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -48,6 +49,11 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::post('/edit', [UserController::class, 'editProfile']);
         Route::post('/change-password', [UserController::class, 'changePassword']);
         Route::post('/change-email', [UserController::class, 'changeEmail']);
+    });
+
+    Route::group(['prefix' => 'notifications'], function () {
+        Route::get('/', [NotificationController::class, 'notifications']);
+        Route::get('/mark-all-as-read', [NotificationController::class, 'markAllAsRead']);
     });
 });
 

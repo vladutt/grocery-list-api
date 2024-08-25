@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Mail\WelcomeMail;
+use App\Models\Notification;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\JsonResponse;
@@ -43,6 +44,8 @@ class RegisteredUserController extends Controller
         Auth::login($user);
 
         Mail::to($request->email)->send(new WelcomeMail($request->name));
+        Notification::singleNotification('notifications', 'Welcome to Grocer Mate', "Now it's time for you to organize your shopping list and say \"stop\" to impulsive items in your cart.");
+        Notification::singleNotification('paid', 'Pro account', "Because you are one of our first users we will give you a PRO account for 3 months.");
 
         return response()->json([
             'id' => $user->id,

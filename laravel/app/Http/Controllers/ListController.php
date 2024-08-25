@@ -18,6 +18,7 @@ class ListController extends Controller
         $lists = ListModel::currentUser()
             ->orWhereIn('id', $sharedListIds)
             ->with('sharedLists', 'items')
+            ->orderBy('created_at', 'desc')
             ->paginate();
 
         $listsItems = $lists->items();
