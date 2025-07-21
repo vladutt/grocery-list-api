@@ -20,6 +20,7 @@ class Notification extends Model
     {
         Notification::create([
            'icon' => $icon,
+           'user_id' => auth()->user()->id,
            'title' => $title,
            'description' => $description,
         ]);
