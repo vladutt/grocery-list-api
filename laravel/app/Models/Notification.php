@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @method static currentUser()
- * @method static singleNotification($icon, $title, $description)
+ * @method singleNotification($icon, $title, $description)
  */
 class Notification extends Model
 {
@@ -16,9 +16,9 @@ class Notification extends Model
 
     protected $guarded = [];
 
-    public function singleNotification(string $icon, string $title, string $description): void
+    public static function singleNotification(string $icon, string $title, string $description): void
     {
-        $this->create([
+        Notification::create([
            'icon' => $icon,
            'title' => $title,
            'description' => $description,
