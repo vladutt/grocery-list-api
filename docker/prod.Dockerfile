@@ -1,9 +1,9 @@
-FROM ubuntu:20.04
+FROM ubuntu:24.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 
 ARG USER=www-data
-ENV PHP_VERSION=8.3
+ENV PHP_VERSION=8.4
 
 RUN apt update
 RUN apt install lsb-release ca-certificates apt-transport-https software-properties-common -y
@@ -19,7 +19,7 @@ RUN apt-get update && apt-get install -y libyaml-dev nano wget
 # install php extensions
 RUN apt-get update && apt-get -y install php${PHP_VERSION}-cli php${PHP_VERSION}-fpm php${PHP_VERSION}-xml php${PHP_VERSION}-dev \
     php${PHP_VERSION}-intl php${PHP_VERSION}-mbstring php${PHP_VERSION}-mysql php${PHP_VERSION}-curl \
-    php${PHP_VERSION}-opcache php${PHP_VERSION}-zip php${PHP_VERSION}-exif php${PHP_VERSION}-dom php${PHP_VERSION}-yaml php${PHP_VERSION}-xdebug
+    php${PHP_VERSION}-opcache php${PHP_VERSION}-zip php${PHP_VERSION}-exif php${PHP_VERSION}-dom php${PHP_VERSION}-yaml
 
 RUN chown -R nobody:nogroup /run
 
@@ -28,7 +28,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 WORKDIR /var/www/html
 
-COPY . .
+COPY /laravel .
 
 RUN chmod o+w ./storage/ -R
 

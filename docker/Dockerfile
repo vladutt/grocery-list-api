@@ -1,9 +1,9 @@
-FROM ubuntu:20.04
+FROM ubuntu:24.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 
 ARG USER=www-data
-ENV PHP_VERSION=8.3
+ENV PHP_VERSION=8.4
 
 RUN apt update
 RUN apt install lsb-release ca-certificates apt-transport-https software-properties-common -y
